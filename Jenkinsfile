@@ -15,8 +15,6 @@ pipeline {
                 sh 'uname -a'
                 sh 'java -version'
                 sh 'javac -version'
-                sh 'mvn -version'
-                sh 'node --version'
                 stash includes: '**/*', name: 'repo-code'
             }
         }
