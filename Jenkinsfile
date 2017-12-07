@@ -7,47 +7,31 @@ podTemplate(
         hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
     ]
 ) 
-{
-    node('GRADLE_25_BUILDER') {
 
-        stage('Checkout Workspace') {
-            container('gradle') {
-                steps {
-                   checkout scm
-                   stash includes: '**/*', name: 'repo-code'
-                }
+pipeline {
+    agent any
+    options {
+        timestamps()
+        skipDefaultCheckout()
+    }
+    triggers {
+        pollSCM('H/3 * * * *')
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                stash includes: '**/*', name: 'repo-code'
             }
         }
-        stage('Unit Test') {
-            container('gradle') {
-                steps {
-                    unstash 'repo-code'
-                    echo 'Unit Testing..'
-                }
+
+        stage('Unit Tests') {
+            agent {
+                label 'GRADLE_25_BUILDER'
             }
-        }
-        stage('Build') {
-            container('gradle') {
-                steps {
-                    unstash 'repo-code'
-                    echo 'Building..'
-                }
-            }
-        }
-        stage('E2E Test') {
-            container('gradle') {
-                steps {
-                    unstash 'repo-code'
-                    echo 'E2E Testing..'
-                }
-            }
-        }
-        stage('Deploy') {
-            container('gradle') {
-                steps {
-                    unstash 'repo-code'
-                    echo 'Deploying....'
-                }
+            steps {
+                unstash 'repo-code'
+                echo 'Unit Testing..'
             }
         }
     }
