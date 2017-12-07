@@ -11,6 +11,12 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                echo 'Running on Master - Unit Testing..'
+                sh 'uname -a'
+                sh 'java -version'
+                sh 'javac -version'
+                sh 'mvn -version'
+                sh 'node --version'
                 stash includes: '**/*', name: 'repo-code'
             }
         }
@@ -20,7 +26,12 @@ pipeline {
             }
             steps {
                 unstash 'repo-code'
-                echo 'Unit Testing..'
+                echo 'Running on JNLP Slave Java Tools - Unit Testing..'
+                sh 'uname -a'
+                sh 'java -version'
+                sh 'javac -version'
+                sh 'mvn -version'
+                sh 'node --version'
             }
         }
     }
