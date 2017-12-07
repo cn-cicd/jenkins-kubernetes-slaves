@@ -1,35 +1,25 @@
-pipeline {
-    agent any
-    options {
-        timestamps()
-        skipDefaultCheckout()
-    }
-    triggers {
-        pollSCM('H/3 * * * *')
-    }
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-                echo 'Running on Master - Unit Testing..'
-                sh 'uname -a'
-                sh 'java -version'
-                sh 'javac -version'
-                stash includes: '**/*', name: 'repo-code'
+podTemplate(
+    label: 'maven-golang',
+    containers: [
+        containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
+        containerTemplate(name: 'golang', image: 'golang:1.8.0', ttyEnabled: true, command: 'cat')
+    ]
+)
+{
+    node('maven-golang') {
+        stage('Build a Maven project') {
+            git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            container('maven') {
+                sh 'mvn -B clean package'
             }
         }
-        stage('Unit Tests') {
-            agent {
-                label 'GRADLE_25_BUILDER'
-            }
-            steps {
-                unstash 'repo-code'
-                echo 'Running on JNLP Slave Java Tools - Unit Testing..'
-                sh 'uname -a'
-                sh 'java -version'
-                sh 'javac -version'
-                sh 'mvn -version'
-                sh 'node --version'
+        
+        stage('Build a Golang project') {
+            git url: 'https://github.com/terraform-providers/terraform-provider-aws.git'
+            container('golang') {
+                sh 'mkdir -p /go/src/github.com/terraform-providers'
+                sh 'ln -s `pwd` /go/src/github.com/terraform-providers/terraform-provider-aws'
+                sh 'cd /go/src/github.com/terraform-providers/terraform-provider-aws && make build'
             }
         }
     }
