@@ -19,27 +19,35 @@ podTemplate(
             }
         }
         stage('Unit Test') {
-            steps {
-                unstash 'repo-code'
-                echo 'Unit Testing..'
+            container('gradle') {
+                steps {
+                    unstash 'repo-code'
+                    echo 'Unit Testing..'
+                }
             }
         }
         stage('Build') {
-            steps {
-                unstash 'repo-code'
-                echo 'Building..'
+            container('gradle') {
+                steps {
+                    unstash 'repo-code'
+                    echo 'Building..'
+                }
             }
         }
         stage('E2E Test') {
-            steps {
-                unstash 'repo-code'
-                echo 'E2E Testing..'
+            container('gradle') {
+                steps {
+                    unstash 'repo-code'
+                    echo 'E2E Testing..'
+                }
             }
         }
         stage('Deploy') {
-            steps {
-                unstash 'repo-code'
-                echo 'Deploying....'
+            container('gradle') {
+                steps {
+                    unstash 'repo-code'
+                    echo 'Deploying....'
+                }
             }
         }
     }
