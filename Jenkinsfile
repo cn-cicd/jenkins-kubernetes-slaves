@@ -1,5 +1,7 @@
 podTemplate(
     label: 'jnonino-docker-images',
+    nodeUsageMode: 'EXCLUSIVE',
+    activeDeadlineSeconds: 60,
     containers: [
 	  containerTemplate(name: 'gradle', image: 'jnonino/jenkins-slave-gradle', ttyEnabled: true, command: 'cat'),
 	  containerTemplate(name: 'maven', image: 'jnonino/jenkins-slave-maven', ttyEnabled: true, command: 'cat'),
