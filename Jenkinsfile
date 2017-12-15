@@ -1,25 +1,61 @@
 podTemplate(
-    label: 'maven-golang',
+    label: 'jnonino-docker-images',
+    nodeUsageMode: 'EXCLUSIVE',
+    activeDeadlineSeconds: 60,
     containers: [
-        containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
-        containerTemplate(name: 'golang', image: 'golang:1.8.0', ttyEnabled: true, command: 'cat')
+	  containerTemplate(name: 'gradle', image: 'jnonino/jenkins-slave-gradle', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'maven', image: 'jnonino/jenkins-slave-maven', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'nodejs', image: 'jnonino/jenkins-slave-nodejs', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'python', image: 'jnonino/jenkins-slave-python', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'sonar-runner', image: 'jnonino/jenkins-slave-sonar-runner', ttyEnabled: true, command: 'cat')
     ]
 )
 {
-    node('maven-golang') {
-        stage('Build a Maven project') {
-            git 'https://github.com/jenkinsci/kubernetes-plugin.git'
-            container('maven') {
-                sh 'mvn -B clean package'
+    node('jnonino-docker-images') {
+
+        stage('Build a Gradle project') {
+            //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            container('gradle') {
+                sh 'uname -a'
+                sh 'java -version'
+                sh 'javac -version'
+                sh 'gradle --version'
             }
         }
-        
-        stage('Build a Golang project') {
-            git url: 'https://github.com/terraform-providers/terraform-provider-aws.git'
-            container('golang') {
-                sh 'mkdir -p /go/src/github.com/terraform-providers'
-                sh 'ln -s `pwd` /go/src/github.com/terraform-providers/terraform-provider-aws'
-                sh 'cd /go/src/github.com/terraform-providers/terraform-provider-aws && make build'
+
+        stage('Build a Maven project') {
+            //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            container('maven') {
+                sh 'uname -a'
+                sh 'java -version'
+                sh 'javac -version'
+                sh 'mvn --version'
+            }
+        }
+
+        stage('Build a Node.js project') {
+            //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            container('nodejs') {
+                sh 'uname -a'
+                sh 'node --version'
+		        sh 'npm --version'
+            }
+        }
+
+        stage('Build a Python project') {
+            //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            container('python') {
+                sh 'uname -a'
+                sh 'python --version'
+		        sh 'pip --version'
+            }
+        }
+
+        stage('Run Sonar Runner') {
+            //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            container('sonar-runner') {
+                sh 'uname -a'
+                sh 'sonar-runner --version'
             }
         }
     }
