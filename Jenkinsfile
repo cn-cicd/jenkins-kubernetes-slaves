@@ -7,12 +7,12 @@ podTemplate(
 	  containerTemplate(name: 'maven', image: 'jnonino/jenkins-slave-maven', ttyEnabled: true, command: 'cat'),
 	  containerTemplate(name: 'nodejs', image: 'jnonino/jenkins-slave-nodejs', ttyEnabled: true, command: 'cat'),
 	  containerTemplate(name: 'python', image: 'jnonino/jenkins-slave-python', ttyEnabled: true, command: 'cat'),
-	  containerTemplate(name: 'sonar-runner', image: 'jnonino/jenkins-slave-sonar-runner', ttyEnabled: true, command: 'cat'),
-	  containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat', privileged: true)
-    ],
-    volumes: [
-        hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')
+	  containerTemplate(name: 'sonar-runner', image: 'jnonino/jenkins-slave-sonar-runner', ttyEnabled: true, command: 'cat')
+	  //containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat', privileged: true)
     ]
+    //volumes: [
+    //    hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')
+    //]
 )
 {
     node('jnonino-docker-images') {
