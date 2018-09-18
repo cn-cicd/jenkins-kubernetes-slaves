@@ -28,7 +28,6 @@ podTemplate(
         }
 
         stage('Build a Maven project') {
-            //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
             container('maven') {
                 sh 'uname -a'
                 sh 'java -version'
@@ -38,7 +37,6 @@ podTemplate(
         }
 
         stage('Build a Node.js project') {
-            //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
             container('nodejs') {
                 sh 'uname -a'
                 sh 'node --version'
@@ -47,7 +45,6 @@ podTemplate(
         }
 
         stage('Build a Python project') {
-            //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
             container('python') {
                 sh 'uname -a'
                 sh 'python --version'
@@ -56,7 +53,6 @@ podTemplate(
         }
 
         stage('Run Sonar Runner') {
-            //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
             container('sonar-runner') {
                 sh 'uname -a'
                 sh 'sonar-runner --version'
