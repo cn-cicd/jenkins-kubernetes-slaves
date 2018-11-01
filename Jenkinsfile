@@ -7,7 +7,7 @@ podTemplate(
 	  containerTemplate(name: 'maven', image: 'jnonino/jenkins-slave-maven', ttyEnabled: true, command: 'cat'),
 	  containerTemplate(name: 'nodejs', image: 'jnonino/jenkins-slave-nodejs', ttyEnabled: true, command: 'cat'),
 	  containerTemplate(name: 'python', image: 'jnonino/jenkins-slave-python', ttyEnabled: true, command: 'cat'),
-	  containerTemplate(name: 'sonar-runner', image: 'jnonino/jenkins-slave-sonar-runner', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'sonar', image: 'jnonino/jenkins-slave-sonar-runner', ttyEnabled: true, command: 'cat'),
 	  containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat', privileged: true)
     ],
     volumes: [
@@ -53,7 +53,7 @@ podTemplate(
         }
 
         stage('Run Sonar Runner') {
-            container('sonar-runner') {
+            container('sonar') {
                 sh 'uname -a'
                 sh 'sonar-runner --version'
             }
