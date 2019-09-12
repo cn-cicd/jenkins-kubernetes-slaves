@@ -1,10 +1,10 @@
 # Jenkins Slaves on Demand in Kubernetes Cluster
 
-[![](https://img.shields.io/github/license/jnonino/jenkins-kubernetes-slaves)](https://github.com/jnonino/jenkins-kubernetes-slaves)
-[![](https://img.shields.io/github/issues/jnonino/jenkins-kubernetes-slaves)](https://github.com/jnonino/jenkins-kubernetes-slaves)
-[![](https://img.shields.io/github/issues-closed/jnonino/jenkins-kubernetes-slaves)](https://github.com/jnonino/jenkins-kubernetes-slaves)
-[![](https://img.shields.io/github/languages/code-size/jnonino/jenkins-kubernetes-slaves)](https://github.com/jnonino/jenkins-kubernetes-slaves)
-[![](https://img.shields.io/github/repo-size/jnonino/jenkins-kubernetes-slaves)](https://github.com/jnonino/jenkins-kubernetes-slaves)
+[![](https://img.shields.io/github/license/cn-cicd/jenkins-kubernetes-slaves)](https://github.com/cn-cicd/jenkins-kubernetes-slaves)
+[![](https://img.shields.io/github/issues/cn-cicd/jenkins-kubernetes-slaves)](https://github.com/cn-cicd/jenkins-kubernetes-slaves)
+[![](https://img.shields.io/github/issues-closed/cn-cicd/jenkins-kubernetes-slaves)](https://github.com/cn-cicd/jenkins-kubernetes-slaves)
+[![](https://img.shields.io/github/languages/code-size/cn-cicd/jenkins-kubernetes-slaves)](https://github.com/cn-cicd/jenkins-kubernetes-slaves)
+[![](https://img.shields.io/github/repo-size/cn-cicd/jenkins-kubernetes-slaves)](https://github.com/cn-cicd/jenkins-kubernetes-slaves)
 
 This repository is a PoC that shows how to use slaves on demand on Jenkins based on Docker in Kubernetes Cluster.
 
