@@ -1,13 +1,13 @@
 podTemplate(
-    label: 'jnonino-docker-images',
+    label: 'cnservices-docker-images',
     nodeUsageMode: 'EXCLUSIVE',
     activeDeadlineSeconds: 60,
     containers: [
-	  containerTemplate(name: 'gradle', image: 'jnonino/jenkins-slave-gradle', ttyEnabled: true, command: 'cat'),
-	  containerTemplate(name: 'maven', image: 'jnonino/jenkins-slave-maven', ttyEnabled: true, command: 'cat'),
-	  containerTemplate(name: 'nodejs', image: 'jnonino/jenkins-slave-nodejs', ttyEnabled: true, command: 'cat'),
-	  containerTemplate(name: 'python', image: 'jnonino/jenkins-slave-python', ttyEnabled: true, command: 'cat'),
-	  containerTemplate(name: 'sonar', image: 'jnonino/jenkins-slave-sonar-runner', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'gradle', image: 'cnservices/jenkins-slave-gradle', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'maven', image: 'cnservices/jenkins-slave-maven', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'nodejs', image: 'cnservices/jenkins-slave-nodejs', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'python', image: 'cnservices/jenkins-slave-python', ttyEnabled: true, command: 'cat'),
+	  containerTemplate(name: 'sonar', image: 'cnservices/jenkins-slave-sonar-runner', ttyEnabled: true, command: 'cat'),
 	  containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat', privileged: true)
     ],
     volumes: [
@@ -15,7 +15,7 @@ podTemplate(
     ]
 )
 {
-    node('jnonino-docker-images') {
+    node('cnservices-docker-images') {
 
         stage('Build a Gradle project') {
             //git 'https://github.com/jenkinsci/kubernetes-plugin.git'
